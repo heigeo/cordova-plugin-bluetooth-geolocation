@@ -166,7 +166,12 @@ function initExternalGPS(device) {
                 'longitude': gps.state.lon,
                 'altitude': gps.state.alt,
                 'heading': gps.state.heading,
-                'velocity': gps.state.speed && gps.state.speed * 0.514444
+                // Convert knots to m/s
+                'velocity': gps.state.speed && gps.state.speed * 0.514444,
+                
+                // Guess 7.8 meters 95% interval as base accuracy
+                'accuracy': gps.state.hdop && gps.state.hdop * 4,
+                'verticalAccuracy': gps.state.vdop && gps.state.vdop * 4 // ?
             },
             gps.state.time.getTime()
         );
