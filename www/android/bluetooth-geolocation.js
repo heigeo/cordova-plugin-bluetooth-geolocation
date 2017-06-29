@@ -1,9 +1,11 @@
 var geo = navigator.geolocation,
+    exec = require('cordova/exec'),
     utils = require('cordova/utils'),
     listpicker = window.plugins.listpicker,
     GPS = require('./gps'),
     Coordinates = require('./Coordinates'),
     Position = require('./Position'),
+    PositionError = require('cordova-plugin-geolocation.PositionError'),
     UNCATEGORIZED = 7936;
 
 geo._getCurrentPosition = geo.getCurrentPosition;
@@ -138,6 +140,20 @@ function initExternalGPS(device) {
 
     function createCallback(onSuccess, onError) {
         var cbid = utils.createUUID();
+        exec(function() {
+            _createCallback(cbid, onSuccess, onError);
+        }, function() {
+            if (onError) {
+                onError(new PositionError(
+                    PositionError.PERMISSION_DENIED,
+                    "No location permission"
+                ));
+            }
+        }, "Geolocation", "getPermission", []);
+        return cbid;
+    }
+
+    function _createCallback(cbid, onSuccess, onError) {
         callbacks[cbid] = onSuccess;
         bluetoothSerial.isConnected(function() {}, function() {
             bluetoothSerial.connect(device.id, function() {
@@ -146,7 +162,6 @@ function initExternalGPS(device) {
                 }, onError);
             }, onError);
         });
-        return cbid;
     }
 
     function removeCallback(cbid) {
