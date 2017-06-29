@@ -1,0 +1,32 @@
+{
+  "name": "cordova-plugin-bluetooth-geolocation",
+  "version": "0.0.1",
+  "description": "Connect to external bluetooth GPS on Android without requiring Mock Locations.",
+  "cordova": {
+    "id": "cordova-plugin-bluetooth-geolocation",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heigeo/cordova-plugin-bluetooth-geolocation.git"
+  },
+  "keywords": [
+    "cordova",
+    "device",
+    "geolocation",
+    "gps",
+    "bluetooth",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Houston Engineering, Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heigeo/cordova-plugin-bluetooth-geolocation/issues"
+  },
+  "homepage": "https://github.com/heigeo/cordova-plugin-bluetooth-geolocation#readme"
+}

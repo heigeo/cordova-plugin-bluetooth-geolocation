@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-plugin-bluetooth-geolocation" version="0.0.1">
+    <name>Bluetooth Geolocation support for Android</name>
+    <description>Connect to external bluetooth GPS on Android without requiring Mock Locations.</description>
+    <license>MIT</license>
+    <keywords>cordova,device,geolocation,gps,bluetooth</keywords>
+
+    <dependency id="cordova-plugin-geolocation" />
+
+    <platform name="android">
+        <dependency id="cordova-plugin-bluetooth-serial" />
+
+        <js-module src="www/android/lib/gps.js" name="gps">
+          <runs />
+        </js-module>
+        <js-module src="www/android/lib/Coordinates.js" name="Coordinates">
+          <runs />
+        </js-module>
+        <js-module src="www/android/lib/Location.js" name="Location">
+          <runs />
+        </js-module>
+
+        <js-module src="www/android/bluetooth-geolocation.js"
+                   name="bluetooth-geolocation">
+          <runs />
+        </js-module>
+
+    </platform>
+
+    <platform name="ios">
+      <js-module src="www/ios/bluetooth-geolocation.js"
+                 name="bluetooth-geolocation">
+        <runs />
+      </js-module>
+    </platform>
+
+</plugin>
+
