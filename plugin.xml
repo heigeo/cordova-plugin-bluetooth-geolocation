@@ -17,7 +17,7 @@
         <js-module src="www/android/lib/Coordinates.js" name="Coordinates">
           <runs />
         </js-module>
-        <js-module src="www/android/lib/Location.js" name="Location">
+        <js-module src="www/android/lib/Position.js" name="Position">
           <runs />
         </js-module>
 
