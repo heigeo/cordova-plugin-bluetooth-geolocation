@@ -1,5 +1,6 @@
 var geo = navigator.geolocation,
     utils = require('cordova/utils'),
+    listpicker = window.plugins.listpicker,
     GPS = require('./gps'),
     Coordinates = require('./Coordinates'),
     Position = require('./Position'),
@@ -61,6 +62,26 @@ geo.setSource.external = function(onSuccess, onError) {
         onSuccess({
             'type': 'external',
             'identifier': device.name + ' (' + device.id + ')'
+        });
+    }
+
+    function chooseDevice(devices) {
+        var opts = {
+            'title': 'Select Bluetooth Device',
+            'selectedValue': devices[0].id,
+            'items': devices.map(function(device) {
+                return {
+                    'text': device.name,
+                    'value': device.id
+                };
+            })
+        };
+        listpicker.showPicker(opts, function(devId) {
+            setDevice(devices.filter(function(device) {
+                return device.id == devId;
+            })[0]);
+        }, function() {
+            onError("No device selected.");
         });
     }
 };

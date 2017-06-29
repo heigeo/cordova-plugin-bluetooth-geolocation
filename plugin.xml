@@ -10,6 +10,7 @@
 
     <platform name="android">
         <dependency id="cordova-plugin-bluetooth-serial" />
+        <dependency id="cordova-plugin-listpicker" />
 
         <js-module src="www/android/lib/gps.js" name="gps">
           <runs />
