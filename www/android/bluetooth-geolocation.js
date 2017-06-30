@@ -2,6 +2,7 @@ var geo = navigator.geolocation,
     exec = require('cordova/exec'),
     utils = require('cordova/utils'),
     listpicker = window.plugins.listpicker,
+    currentSource,
     GPS = require('./gps'),
     Coordinates = require('./Coordinates'),
     Position = require('./Position'),
@@ -63,11 +64,19 @@ geo.setSource.external = function(onSuccess, onError) {
     }, onError);
 
     function setDevice(device) {
-        setMethods(initExternalGPS(device));
-        onSuccess({
-            'type': 'external',
-            'identifier': device.name + ' (' + device.id + ')'
-        });
+        bluetoothSerial.isConnected(function() {
+            bluetoothSerial.disconnect(testConnection, onError);
+        }, testConnection);
+        function testConnection() {
+            bluetoothSerial.connect(device.id, function() {
+                setMethods(initExternalGPS(device));
+                onSuccess({
+                    'type': 'external',
+                    'identifier': device.name + ' (' + device.id + ')'
+                });
+                bluetoothSerial.disconnect();
+            }, onError);
+        }
     }
 
     function chooseDevice(devices) {
@@ -92,6 +101,31 @@ geo.setSource.external = function(onSuccess, onError) {
 };
 
 geo.setSource('internal');
+
+geo.showSourcePicker = function(title) {
+    if (!title) {
+        title = "Select Location Source";
+    }
+    var opts = {
+        'title': title,
+        'items': [{
+            'value': 'internal',
+            'text': 'Internal GPS / Services'
+        }, {
+            'value': 'external',
+            'text': 'External GPS'
+        }],
+        'selectedValue': (currentSource && currentSource.type || 'internal')
+    };
+    listpicker.showPicker(opts, function(sourceType) {
+        geo.setSource(sourceType, function(source) {
+            currentSource = source;
+        }, function(error) {
+            geo.showSourcePicker("Select Location Source\nError: " + error);
+        });
+    });
+};
+
 
 function setMethods(obj) {
     Object.keys(obj).forEach(function(key) {
