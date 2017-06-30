@@ -16,6 +16,9 @@ geo.watchPosition = function(onSuccess, onError, opts) {
     }, onError, opts);
 };
 
+geo.hasSource = true;
+geo.canSetSource = false;
+
 geo.setSource = function(source, onSuccess, onError) {
     if (!onError) {
         onError = console.error.bind(console);

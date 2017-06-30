@@ -12,6 +12,9 @@ geo._getCurrentPosition = geo.getCurrentPosition;
 geo._watchPosition = geo.watchPosition;
 geo._clearWatch = geo.clearWatch;
 
+geo.hasSource = true;
+geo.canSetSource = true;
+
 geo.setSource = function(source, onSuccess, onError) {
     if (!onSuccess) {
         onSuccess = function(sourceInfo) {
