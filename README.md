@@ -66,7 +66,7 @@ if (navigator.geolocation.canSetSource)
 
 `true` on Android and `false` on iOS.
 
-## navigator.geolocation.showSourcePicker
+### navigator.geolocation.showSourcePicker
 
 ```javascript
 navigator.geolocation.showSourcePicker();
@@ -86,7 +86,7 @@ The GPS device should be paired with your phone before calling this function.  I
 
 On iOS, this function is not supported and will immediately call the error callback (see above).
 
-### `Position.source`
+### Position.source
 
 When the plugin is present, `Position` objects returned by `getCurrentPosition()` and `watchPosition()` will have additional attribute, `source`, with the following attributes set:
 
@@ -98,8 +98,35 @@ name | description
 
 Note that the `accuracy` value on `Position.coords` is a rough estimate based on the [HDOP] reported by the GPS.  It should usually be within an order of magnitude of the `accuracy` that would be computed by a standard implementation of `navigator.geolocation`.
 
+## Leaflet Integration
+
+Since this plugin transparently overwrites the built-in `navigator.geolocation` API, it will automatically work with Leaflet and other mapping libraries.  However, leaflet `LocationEvent` objects returned via [`map.locate()`][map.locate] will not make use of the custom `source` property.  If you are using Leaflet's API instead of `navigator.geolocation`, you can use the following code to store this information and include it in your application:
+
+```javascript
+var map = L.map("...", {...}),
+    lastSource;
+
+if (navigator.geolocation.hasSource) {
+    map._handleGeolocationResponse = function(pos) {
+        lastSource = pos.source;
+        L.Map.prototype._handleGeolocationResponse.call(map, pos);
+    }
+    if (navigator.geolocation.canSetSource) {
+        navigator.geolocation.setSource('external');
+    }
+}
+
+map.on('locationfound', function(evt) {
+     console.log(evt.latlng.lat);  // 45.079936
+     console.log(evt.latlng.lng);  // -93.55493
+     console.log(lastSource ? lastSource.type : "unknown"); // "external"
+});
+
+map.locate({...});
+```
 
 [bluetoothSerial]: https://github.com/don/BluetoothSerial
 [GPS.js]: https://github.com/infusion/GPS.js
 [cordova-plugin-geolocation]: https://github.com/apache/cordova-plugin-geolocation
 [HDOP]: https://en.wikipedia.org/wiki/Dilution_of_precision_(navigation)
+[map.locate]: http://leafletjs.com/reference-1.1.0.html#map-locate
