@@ -61,7 +61,7 @@ Indicates that the plugin is present and that the `source` property will be set 
 ### navigator.geolocation.canSetSource
 ```javascript
 if (navigator.geolocation.canSetSource)
-    console.log("Android");
+    console.log("Using cordova-plugin-bluetooth-geolocation on Android");
 ```
 
 `true` on Android and `false` on iOS.
@@ -96,7 +96,9 @@ name | description
 `typeIsGuess` | `false` (on Android), `true` (on iOS)
 `identifier` | Bluetooth device name and MAC Address, if known
 
-Note that the `accuracy` value on `Position.coords` is a rough estimate based on the [HDOP] reported by the GPS.  It should usually be within an order of magnitude of the `accuracy` that would be computed by a standard implementation of `navigator.geolocation`.
+On Android, the source type is known with certainty (since the plugin itself is controlling the API).  On iOS, the type is a guess based on a heuristic that (currently) looks at the number of decimal places in the `altitude` value.
+
+Note that when using `"external"` source on Android, the `accuracy` value on `Position.coords` is a rough estimate based on the [HDOP] reported by the GPS unit.  This value should usually be within an order of magnitude of the `accuracy` that would be computed by a standard implementation of `navigator.geolocation`.
 
 ## Leaflet Integration
 
