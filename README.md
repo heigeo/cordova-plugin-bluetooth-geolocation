@@ -127,8 +127,14 @@ map.on('locationfound', function(evt) {
 map.locate({...});
 ```
 
+### wq.app Note
+
+If you are using the latest [wq/locate.js] from [wq.app], the Leaflet patching is handled automatically.  See the documentation for [wq/locate.js] for more information.
+
 [bluetoothSerial]: https://github.com/don/BluetoothSerial
 [GPS.js]: https://github.com/infusion/GPS.js
 [cordova-plugin-geolocation]: https://github.com/apache/cordova-plugin-geolocation
 [HDOP]: https://en.wikipedia.org/wiki/Dilution_of_precision_(navigation)
 [map.locate]: http://leafletjs.com/reference-1.1.0.html#map-locate
+[wq/locate.js]: https://wq.io/docs/locate-js
+[wq.app]: https://wq.io/wq.app
