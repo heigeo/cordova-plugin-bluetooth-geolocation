@@ -142,7 +142,7 @@ map.locate({...});
 
 ### wq.app Note
 
-If you are using the latest [wq/locate.js] from [wq.app], the Leaflet patching is handled automatically.  See the documentation for [wq/locate.js] for more information.
+If you are using the latest [wq/locate.js] from [wq.app], the Leaflet patching is handled automatically.  The `Locator` widget will populate any provided `"source"` `<input>` with information about the GPS source. See the documentation for [wq/locate.js] for more information.
 
 [bluetoothSerial]: https://github.com/don/BluetoothSerial
 [GPS.js]: https://github.com/infusion/GPS.js
