@@ -2,6 +2,19 @@
 
 PhoneGap/Cordova plugin to connect to external bluetooth GPS devices on Android.  Importantly, the plugin does not require the use of Mock Locations (which require developer settings and a third party application).  Instead, the plugin communicates directly with the Bluetooth device via [BluetoothSerial] and then parses the incoming NMEA stream with [GPS.js].
 
+<img alt="Internal GPS Result"
+     width="24.5%"
+     src="https://raw.githubusercontent.com/heigeo/cordova-plugin-bluetooth-geolocation/master/images/result-internal.png">
+<img alt="Switch to External"
+     width="24.5%"
+     src="https://raw.githubusercontent.com/heigeo/cordova-plugin-bluetooth-geolocation/master/images/select-external.png">
+<img alt="Device List"
+     width="24.5%"
+     src="https://raw.githubusercontent.com/heigeo/cordova-plugin-bluetooth-geolocation/master/images/select-device.png">
+<img alt="External GPS Result"
+     width="24.5%"
+     src="https://raw.githubusercontent.com/heigeo/cordova-plugin-bluetooth-geolocation/master/images/result-external.png">
+
 This plugin uses the official [cordova-plugin-geolocation] to manage location permissions and provide a relatively consistent API across platforms.
 
 On iPhone and iPad, external GPS devices are automatically integrated into location services, and there is no API to directly control which source is used.  The iOS version of this plugin will attempt to guess which source is used when providing location responses.
