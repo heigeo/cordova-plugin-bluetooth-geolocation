@@ -29,7 +29,7 @@ geo.setSource = function(source, onSuccess, onError) {
 function guessSource(position) {
     var source = {}, parts;
     if (position.coords && position.coords.altitude) {
-        parts = position.coords.altitude.split('.');
+        parts = (position.coords.altitude + '').split('.');
         // On iOS, altitude from an external GPS is rounded down to at most 1
         // decimal place.
         if (parts.length == 1 || parts[1].length == 1) {
