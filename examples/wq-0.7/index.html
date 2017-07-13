@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test External GPS</title>
+    <script src="cordova.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=yes" />
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/lib/require.js" data-main="js/main.js"></script>
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        <h1>Test External GPS</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <form>
+          <ul data-role="listview" data-inset="true">
+            <li class="ui-field-contain">
+              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
+                <legend>Location Mode</legend>
+                <input type='radio' id='gpstest-toggle-internal' name='toggle' value='internal'>
+                <label for='gpstest-toggle-internal'>Internal GPS</label>
+                <input type='radio' id='gpstest-toggle-external' name='toggle' value='external'>
+                <label for='gpstest-toggle-external'>External GPS</label>
+                <input type='radio' id='gpstest-toggle-interactive' name='toggle' value='interactive'>
+                <label for='gpstest-toggle-interactive'>Point on Map</label>
+                <input type='radio' id='gpstest-toggle-manual' name='toggle' value='manual'>
+                <label for='gpstest-toggle-manual'>Enter Coordinates</label>
+              </fieldset>
+              <p class='error gpstest-toggle-errors'></p>
+            </li>
+            <li>
+              <label for='gpstest-geometry'>Location</label>
+              <input type='hidden' data-xform-type='geoshape' name='geometry' required>
+              <div class="map edit-map" id='gpstest-edit-map'></div>
+              <p class='error gpstest-geometry-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='gpstest-latitude'>Latitude</label>
+              <input id='gpstest-latitude' type='tel' data-xform-type='decimal' name='latitude'>
+              <p class='error gpstest-latitude-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='gpstest-longitude'>Longitude</label>
+              <input id='gpstest-longitude' type='tel' data-xform-type='decimal' name='longitude'>
+              <p class='error gpstest-longitude-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='gpstest-accuracy'>GPS Accuracy</label>
+              <input id='gpstest-accuracy' type='tel' data-xform-type='decimal' name='accuracy' step='0.001'>
+              <p class='error gpstest-accuracy-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='gpstest-source'>Source</label>
+              <input id='gpstest-source' type='text' data-xform-type='string' name='source'>
+              <p class='error gpstest-notes-errors'></p>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

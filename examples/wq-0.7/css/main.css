@@ -1,0 +1,10 @@
+@import url("lib/jquery.mobile.css");
+@import url("lib/leaflet.css");
+
+.map {
+    border: 1px solid #999;
+}
+
+.edit-map {
+    height: 300px;
+};

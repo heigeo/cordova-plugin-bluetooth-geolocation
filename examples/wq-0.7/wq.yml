@@ -1,0 +1,6 @@
+optimize:
+   appDir: .
+   dir: build
+init:
+   css: css
+   js: js
