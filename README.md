@@ -81,13 +81,22 @@ if (navigator.geolocation.canSetSource)
 
 `true` on Android and `false` on iOS.
 
+<img alt="Source Picker"
+     width="12.5%"
+     align="right"
+     src="https://raw.githubusercontent.com/heigeo/cordova-plugin-bluetooth-geolocation/master/images/select-internal.png">
+     
 ### navigator.geolocation.showSourcePicker
 
 ```javascript
 navigator.geolocation.showSourcePicker();
 ```
+This function provides a simple user interface (at right) to allow the user to select whether to use internal device or an external Bluetooth reciever.  The plugin calls `setSource()` internally.  If there are any errors switching to the external device, the dialog will re-appear until the user selects internal or cancels.
 
-This function provides a simple user interface to allow the user to select whether to use an internal or external device.  The plugin calls `setSource()` internally.
+<img alt="Device List"
+     width="12.5%"
+     align="right"
+     src="https://raw.githubusercontent.com/heigeo/cordova-plugin-bluetooth-geolocation/master/images/select-device.png">
 
 ### navigator.geolocation.setSource
 
@@ -95,9 +104,9 @@ This function provides a simple user interface to allow the user to select wheth
 navigator.geolocation.setSource(source[, callback, errorCallback]);
 ```
 
-Sets source to one of `"internal"` or `"external"`.  On Android, the source is `"internal"` until the plugin is enabled by calling the function with `"external"`.  Once the location is sucessfully set to external, future calls to `watchPosition` and `getCurrentPosition` will use the connected bluetooth device instead of the internal location services.
+Sets source to one of `"internal"` or `"external"`.  On Android, the source is `"internal"` until Bluetooth is enabled by calling this function with `"external"`.  Once the location is sucessfully set to external, future calls to `watchPosition` and `getCurrentPosition` will use the connected bluetooth device instead of the internal location services.
 
-The GPS device should be paired with your phone before calling this function.  If there is only one paired GPS device, the plugin should automatically detect it and call the success callback.  If there is more than one possibility, the plugin will show a dialog for selecting which device to use.  If the user cancels the dialog or there are no available bluetooth devices, the error callback will be called instead.
+The GPS device should be paired with your phone before calling this function.  If there is only one paired GPS device, the plugin should automatically detect it and call the success callback.  If there is more than one possibility, the plugin will show a dialog (at right) for selecting which device to use.  If the user cancels the dialog or there are no available bluetooth devices, the error callback will be called instead.
 
 On iOS, this function is not supported and will immediately call the error callback (see above).
 
