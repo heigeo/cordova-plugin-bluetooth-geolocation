@@ -15,6 +15,8 @@ PhoneGap/Cordova plugin to connect to external bluetooth GPS devices on Android.
      width="24.5%"
      src="https://raw.githubusercontent.com/heigeo/cordova-plugin-bluetooth-geolocation/master/images/result-external.png">
 
+> Note: This plugin currently only searches the list of paired devices when connecting via Bluetooth.  The external GPS should be paired using the default Android Bluetooth settings *before* using apps built with this plugin.
+
 This plugin uses the official [cordova-plugin-geolocation] to manage location permissions and provide a relatively consistent API across platforms.
 
 On iPhone and iPad, external GPS devices are automatically integrated into location services, and there is no API to directly control which source is used.  The iOS version of this plugin will attempt to guess which source is used when providing location responses.
