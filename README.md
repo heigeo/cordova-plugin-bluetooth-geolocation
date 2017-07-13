@@ -144,7 +144,80 @@ map.locate({...});
 
 ### wq.app Note
 
-If you are using the latest [wq/locate.js] from [wq.app], the Leaflet patching is handled automatically.  The `Locator` widget will populate any provided `"source"` `<input>` with information about the GPS source. See the documentation for [wq/locate.js] for more information.
+If you are using the latest [wq/locate.js] from [wq.app], the Leaflet patching is handled automatically.  The `Locator` widget will populate any provided `"source"` `<input>` with information about the GPS source. See the documentation for [wq/locate.js] for more information.  Using the examples below, you can also use custom location modes to avoid the need for a separate call to `geolocation.showSourcePicker()`.
+
+#### Example for wq 1.0
+```javascript
+// myapp/gpsinit.js
+define({
+    'run': function($page, routeInfo) {
+         var mapId = map.getMapId(routeInfo);
+         var locator = locate.locators[mapId];
+         if (!locator) {
+             return;
+         }
+         if (navigator.geolocation.canSetSource) {
+             locator.internalStart = function() {
+                 navigator.geolocation.setSource(
+                     'internal', locator.gpsStart, locator.onerror
+                 );
+             };
+             locator.externalStart = function() {
+                 navigator.geolocation.setSource(
+                     'external', locator.gpsStart, locator.onerror
+                 );
+             };
+             locator.internalStop = locator.externalStop = locator.gpsStop;
+         } else {
+             $page.find('label[for=gpstest-toggle-internal]').text("GPS");
+             $page.find('#gpstest-toggle-internal').val("gps");
+             $page.find('label[for=gpstest-toggle-external], #gpstest-toggle-external').hide();
+         }
+     }
+});
+
+// myapp/main.js
+define(['wq/app', 'wq/map', './gpsinit', ...],
+function(app, map, gpsInit) {
+     app.use(map);
+     app.use(gpsInit);
+     app.init(config).then(...);
+);
+```
+[See full example][wq-1.0-example]
+
+#### Example for wq 0.7
+```javascript
+var map = L.map("...", {...});
+var fields = {
+    'toggle': $('input[name=toggle]'),
+    'latitude': $('input[name=latitude]'),
+    'longitude': $('input[name=longitude]'),
+    'accuracy': $('input[name=accuracy]'),
+    'source': $('input[name=source]')
+};
+
+var locator = locate.locator(map, fields);
+if (navigator.geolocation.canSetSource) {
+    locator.internalStart = function() {
+        navigator.geolocation.setSource(
+            'internal', locator.gpsStart, locator.onerror
+        );
+    };
+    locator.externalStart = function() {
+        navigator.geolocation.setSource(
+            'external', locator.gpsStart, locator.onerror
+        );
+    };
+    locator.internalStop = locator.externalStop = locator.gpsStop;
+} else {
+    $('label[for=gpstest-toggle-internal]').text("GPS");
+    $('#gpstest-toggle-internal').val("gps");
+    $('label[for=gpstest-toggle-external], #gpstest-toggle-external').hide();
+}
+```
+
+[See full example][wq-0.7-example]
 
 [bluetoothSerial]: https://github.com/don/BluetoothSerial
 [GPS.js]: https://github.com/infusion/GPS.js
@@ -153,3 +226,5 @@ If you are using the latest [wq/locate.js] from [wq.app], the Leaflet patching i
 [map.locate]: http://leafletjs.com/reference-1.1.0.html#map-locate
 [wq/locate.js]: https://wq.io/docs/locate-js
 [wq.app]: https://wq.io/wq.app
+[wq-1.0-example]: https://github.com/heigeo/cordova-plugin-bluetooth-geolocation/tree/master/examples/wq
+[wq-0.7-example]: https://github.com/heigeo/cordova-plugin-bluetooth-geolocation/tree/master/examples/wq-0.7
