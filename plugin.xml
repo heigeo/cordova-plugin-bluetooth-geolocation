@@ -34,6 +34,9 @@
                  name="bluetooth-geolocation">
         <runs />
       </js-module>
+      <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+            <string>This app needs your location in order to show nearby locations.</string>
+      </config-file>
     </platform>
 
 </plugin>
